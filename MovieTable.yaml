@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources: 
+  MovieDB: 
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      AttributeDefinitions: 
+        - 
+          AttributeName: "releaseYear"
+          AttributeType: "N"
+        - 
+          AttributeName: "title"
+          AttributeType: "S"
+      KeySchema: 
+        - 
+          AttributeName: "releaseYear"
+          KeyType: "HASH"
+        - 
+          AttributeName: "title"
+          KeyType: "RANGE"
+      TableName: "MovieDB"
+      
