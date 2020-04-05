@@ -54,7 +54,6 @@ Resources:
       ParentId: 
         "Fn::GetAtt": ["mediaApi", "RootResourceId"]
       PathPart: media
-
   mediaApiGET:
     Type: AWS::ApiGateway::Method
     Properties: 
@@ -83,6 +82,24 @@ Resources:
     Properties:
       RestApiId: !Ref mediaApi
       StageName: test
+  MovieDB: 
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      AttributeDefinitions: 
+        - 
+          AttributeName: "releaseYear"
+          AttributeType: "N"
+        - 
+          AttributeName: "title"
+          AttributeType: "S"
+      KeySchema: 
+        - 
+          AttributeName: "releaseYear"
+          KeyType: "HASH"
+        - 
+          AttributeName: "title"
+          KeyType: "RANGE"
+      TableName: "MovieDB"
 Outputs: 
   restId: 
     Description: use this
@@ -97,3 +114,5 @@ Outputs:
          - ':lambda:path/2015-03-31/functions/'
          - !GetAtt getMediaRandom.Arn
          - '/invocations'
+
+ 
