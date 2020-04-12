@@ -1,7 +1,6 @@
 var AWS = require("aws-sdk");
 var fs = require('fs');
 var path = require('path');
-var hostName = 'http://' + process.env.LOCALSTACK_HOSTNAME + ':4569'
 
 AWS.config.update({
     endpoint: 'http://localhost:4569',
@@ -11,7 +10,6 @@ AWS.config.update({
 })
 
 var dynamodb = new AWS.DynamoDB.DocumentClient();
-
 
 var allMovies = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'seed.json'), 'utf8'));
 allMovies.forEach(function (movie) {

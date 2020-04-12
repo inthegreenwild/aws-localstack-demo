@@ -1,7 +1,5 @@
-var AWS = require("aws-sdk");
-
-var hostName = 'http://' + process.env.LOCALSTACK_HOSTNAME + ':4569'
-
+const AWS = require("aws-sdk");
+const hostName = 'http://' + process.env.LOCALSTACK_HOSTNAME + ':4569'
 AWS.config.update({
     region: "us-east-1",
     endpoint: hostName,
@@ -9,10 +7,9 @@ AWS.config.update({
     secretAccessKey: 'alsosecret',
     maxRetries: 3
 });
+const docClient = new AWS.DynamoDB.DocumentClient();
 
-var docClient = new AWS.DynamoDB.DocumentClient();
-
-let handler = async (event, context) => {
+let handler = async (event) => {
     const mediaType = event.queryStringParameters.type;
     const mediaMap = {
         'movie': 'Movie',
@@ -45,7 +42,7 @@ let handler = async (event, context) => {
     let ran = Math.floor(Math.random() * len);
     let item = data.Items[ran];
 
-    var getParams = {
+    const getParams = {
         TableName: 'MovieDB',
         Key: {
             releaseYear: item.releaseYear,
